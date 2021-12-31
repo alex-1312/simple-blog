@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `db_example_project` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `db_example_project`;
+CREATE DATABASE IF NOT EXISTS `db_simple_blog` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `db_simple_blog`;
 
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
