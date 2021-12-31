@@ -41,7 +41,7 @@ ALTER TABLE `blog_posts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id_foreign` (`user_id`);
 
-ALTER TABLE `guestbook`
+ALTER TABLE `blog_posts`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `blog_posts`
