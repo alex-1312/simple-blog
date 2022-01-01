@@ -26,12 +26,15 @@ if (isset($_SESSION['message'])) {
 // get current page
 $page = $_GET['page'] ?? '';
 
-// TODO:
-// creating and coding header file
-// including header file
+// include header
+require_once 'inc/header.inc.php';
 
 // switchcase navigation includes
+switch($page)
+{
+  // default: 
+}
 
-// creating and coding footer file
-
+// include footer
+require_once 'inc/footer.inc.php';
 ?>
