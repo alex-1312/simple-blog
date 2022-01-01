@@ -1,6 +1,6 @@
 <?php
 // avoid file from beeing called directly via url
-defined('SECURE') or die(header('location: index.php'));
+defined('SECURE') or die(header('location: ../../index.php'));
 
 /*
   format a datestring coming from database
