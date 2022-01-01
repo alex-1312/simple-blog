@@ -26,13 +26,16 @@ if (isset($_SESSION['message'])) {
 // get current page
 $page = $_GET['page'] ?? '';
 
+// class settings for info box
+$info_box = $_GET['info_box'] ?? 'bg-info';
+
 // include header
 require_once 'inc/header.inc.php';
 
 // switchcase navigation includes
 switch($page)
 {
-  // default: 
+  default: include 'inc/home/home.inc.php'; break;
 }
 
 // include footer

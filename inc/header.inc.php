@@ -18,9 +18,9 @@
 </head>
 <body>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+<nav class="navbar navbar-expand-md bg-light navbar-light">
   <!-- Brand -->
-  <a class="navbar-brand" href="#">Small Blog</a>
+  <!-- <a class="navbar-brand" href="#">Small Blog</a> -->
 
   <!-- Toggler/collapsibe Button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -28,7 +28,7 @@
   </button>
 
   <!-- Navbar links -->
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+  <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item <?= empty($page) ? 'active' : '';  ?>">
         <a class="nav-link" href="index.php">Home</a>
@@ -42,3 +42,10 @@
     </ul>
   </div>
 </nav> 
+<?php if (isset($message)) : ?>
+      <div class="<?= $info_box ?> rounded-lg text-center pt-2">
+          <p class="text-white p-1">
+              <?= $message ?>
+          </p>
+      </div>
+<?php endif; ?>
