@@ -1,6 +1,4 @@
 <?php
-// avoid file from beeing called directly via url
-defined('SECURE') or die('ZUGRIFF VERWEIGERT: ' . __FILE__);
 
 /**
  * format a datestring coming from database
@@ -75,7 +73,7 @@ function isAdminUser()
  * function to log user in i.e. set the session vars
  * @param: $mail - string
  * @param: $username - string
- * @param: $id - string
+ * @param: $id - int
  * @param: $role - string 
  */
 function logIn($mail, $username, $id, $role)
@@ -96,4 +94,21 @@ function logOff()
   unset($_SESSION['id']);
   unset($_SESSION['role']);
   unset($_SESSION['token']);
+}
+
+/**
+ * function to test session vars
+ */
+function testSession()
+{
+  var_dump($_SESSION['logged']);
+  echo '<hr>';
+  var_dump($_SESSION['username']);
+  echo '<hr>';
+  var_dump($_SESSION['id']);
+  echo '<hr>';
+  var_dump($_SESSION['role']);
+  echo '<hr>';
+  var_dump($_SESSION['token']);
+  echo '<hr>';
 }

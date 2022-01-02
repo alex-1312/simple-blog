@@ -54,7 +54,7 @@
   }
 ?>
 <?php if (isset($message)) : ?>
-  <div class="<?= $info_box ?> rounded-lg text-center pt-2">
+  <div class="<?= $info_box ?> rounded-lg text-center">
     <p class="text-white p-1">
       <?= $message ?>
     </p>

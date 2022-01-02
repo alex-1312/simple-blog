@@ -1,7 +1,3 @@
-<?php
-// avoid file from beeing called directly via url
-defined('SECURE') or die(header('location: ../../index.php'));
-?>
 <!-- The Modal -->
 <div class="modal fade" id="modal-login-form">
   <div class="modal-dialog modal-dialog-centered">

@@ -5,10 +5,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 ini_set('display_startup_errors', TRUE);
 
-// define constant to determine if scripts are called
-// directly via or called via include
-define('SECURE', true);
-
 // requires 
 require_once 'inc/db/db.inc.php';
 require_once 'inc/func/func.inc.php';
@@ -22,8 +18,7 @@ if(! isset($_SESSION['token'])) {
 }
 
 // TEST
-var_dump($_SESSION['token']);
-var_dump($_SESSION['logged']);
+testSession();
 
 // get login/error/success messages if available
 if (isset($_SESSION['message'])) {
