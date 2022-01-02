@@ -42,7 +42,7 @@
       </li>
       <?php else : ?>
         <li class="nav-item">
-        <a class="nav-link" href="">Logout</a>
+        <a class="nav-link" href="inc/auth/logout.php">Logout</a>
       </li>
       <?php endif; ?>
     </ul>
@@ -50,7 +50,7 @@
 </nav> 
 <?php
   if(!isLoggedIn()){
-    // require_once '';
+    require_once 'inc/auth/modal_login_form.inc.php';
   }
 ?>
 <?php if (isset($message)) : ?>
