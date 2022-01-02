@@ -1,6 +1,6 @@
 <?php
 // prevent file from beeing called directly via url
-defined('SECURE') or die(header('location: ../../index.php'));
+// defined('SECURE') or die(header('location: ../../index.php'));
 ?>
 <div class="container text-center pt-3" >
   <h1>HOME.INC.PHP</h1>

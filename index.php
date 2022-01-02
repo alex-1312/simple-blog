@@ -1,4 +1,10 @@
 <?php
+// for development purposes only
+// enable full error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
+
 // define constant to determine if scripts are called
 // directly via or called via include
 define('SECURE', true);

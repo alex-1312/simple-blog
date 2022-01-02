@@ -36,16 +36,27 @@
       <li class="nav-item <?= ($page == 'link2') ? 'active' : ''; ?>">
         <a class="nav-link" href="index.php?page=link2">Link2</a>
       </li>
-      <li class="nav-item <?= ($page == 'link3') ? 'active' : ''; ?>">
-        <a class="nav-link" href="index.php?page=link3">Link3</a>
+      <?php if(!isLoggedIn()) :?>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" href="#modal-login-form">Login</a>
       </li>
+      <?php else : ?>
+        <li class="nav-item">
+        <a class="nav-link" href="">Logout</a>
+      </li>
+      <?php endif; ?>
     </ul>
   </div>
 </nav> 
+<?php
+  if(!isLoggedIn()){
+    // require_once '';
+  }
+?>
 <?php if (isset($message)) : ?>
-      <div class="<?= $info_box ?> rounded-lg text-center pt-2">
-          <p class="text-white p-1">
-              <?= $message ?>
-          </p>
-      </div>
+  <div class="<?= $info_box ?> rounded-lg text-center pt-2">
+    <p class="text-white p-1">
+      <?= $message ?>
+    </p>
+  </div>
 <?php endif; ?>
