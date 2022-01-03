@@ -18,7 +18,7 @@ if(! isset($_SESSION['token'])) {
 }
 
 // TEST
-testSession();
+// testSession();
 
 // get login/error/success messages if available
 if (isset($_SESSION['message'])) {
@@ -40,6 +40,7 @@ require_once 'inc/header.inc.php';
 // switchcase navigation includes
 switch($page)
 {
+  case 'register': include 'inc/registration/register.inc.php'; break;
   default: include 'inc/home/home.inc.php'; break;
 }
 
