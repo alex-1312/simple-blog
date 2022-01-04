@@ -27,9 +27,9 @@ if(!($_POST))
 }
 elseif($_POST['xsrf-token']===$_SESSION['token'])
 {
-  $id = $_SESSION['id'];
-  $title = trim(cleanInput($_SESSION['title']));
-  $blogpost = trim(cleanInput($_SESSION['blogpost']));
+  $id = $_POST['userid'];
+  $title = trim(cleanInput($_POST['title']));
+  $blogpost = trim(cleanInput($_POST['blogpost']));
   
   $new_fn;
 
@@ -64,4 +64,4 @@ elseif($_POST['xsrf-token']===$_SESSION['token'])
 
   $_SESSION['message'] = 'Blog Eintrag übermittelt.';
 }
-// redirect('../../index.php?page=blog');
+redirect('../../index.php?page=blog');

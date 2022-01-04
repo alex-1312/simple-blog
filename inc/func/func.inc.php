@@ -1,6 +1,6 @@
 <?php
 //includes
-require_once './func_file_upload.inc.php';
+require_once 'func_file_upload.inc.php';
 
 /**
  * format a datestring coming from database
