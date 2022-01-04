@@ -53,7 +53,7 @@
   // echo '*************TEST****************';  
 
 foreach($data AS $key=>$value) : ?>
-  <div class="rounded-lg bg-secondary text-white my-5 py-3">
+  <div class="rounded-lg bg-secondary text-white my-3 py-3">
     <section>
       <h3><?= cleanInput($value['title']); ?></h3>
       <p><small>Beitrag erstellt von</small> <b><?= ucfirst($value['firstname']); ?></b> <small>am</small> <b><?= formatDbDate($value['datum']); ?></b></p>
@@ -72,11 +72,21 @@ foreach($data AS $key=>$value) : ?>
           <br>
           USER-ID: <?= $value['user_id'] ?>
           <br>
-          USER-Name: <?= $value['firstname'] ?>  
+          USER-Name: <?= $value['firstname'] ?>
+          <br>
+          BEITRAGS-ID: <?= (int)$value[0]; ?>
         </p>
       </div>
     </section>
   </div>
+  <?php if (isAdminUser() || $value['user_id'] === $_SESSION['id']) : ?>
+    <div class="pb-5">
+      <a href="inc/blog/blog_edit.php" class="btn btn-primary">
+        Bearbeiten
+      </a>
+      <a href="inc/blog/blog_delete.php?user_id=<?= (int)$value['user_id']; ?>&post_id=<?= (int)$value[0] ?>&fname=<?= $value['img_file_name']; ?>&xsrf-token=<?= $_SESSION['token']; ?>" onclick="return confirm('Delete? Really??');" class="btn btn-danger">Beitrag löschen</a>
+    </div>
+  <?php endif; ?>
 <?php endforeach; ?>
 <?php
   // TEST

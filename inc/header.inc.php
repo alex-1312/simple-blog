@@ -61,9 +61,9 @@
   }
 ?>
 <?php if (isset($message)) : ?>
-  <div class="<?= $info_box ?> rounded-lg text-center">
+  <div class="<?= $info_box ?> text-center sticky-top">
     <p class="text-white p-1">
-      <?= $message ?>
+      <b><?= $message ?></b>
     </p>
   </div>
 <?php endif; ?>
