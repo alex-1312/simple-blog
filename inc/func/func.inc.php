@@ -3,14 +3,30 @@
 require_once 'func_file_upload.inc.php';
 
 /**
+ * DEPRACATED
  * format a datestring coming from database
  * @param: $dbDate datestring from database
  * @param: $format (optional) pattern for string encoding 
  * @return: returns a utf8 encoded date string
 */
-function formatDbDate($dbDate, $format = '%A, %d.%B.%Y %H:%M:%S')
+// function formatDbDate($dbDate, $format = '%A, %d.%B.%Y %H:%M:%S')
+// {
+//   return utf8_encode(strftime($format, strtotime($dbDate)));
+// }
+
+function formatDbDate($dbDate, $format = 'd-m-Y H:m:s')
 {
-  return utf8_encode(strftime($format, strtotime($dbDate)));
+  $fmt = datefmt_create(
+    'de-DE',
+    IntlDateFormatter::FULL,
+    IntlDateFormatter::FULL,
+    'Europe/Berlin',
+    IntlDateFormatter::GREGORIAN,
+    'cccc'
+  );
+  $date = new DateTime($dbDate);
+  return datefmt_format($fmt, $date) . ' ' . $date->format($format);
+  
 }
 
 /**

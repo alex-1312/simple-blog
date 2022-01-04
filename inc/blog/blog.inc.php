@@ -3,7 +3,7 @@
 
 <?php if(isLoggedIn() && (isBlogUser() || isAdminUser())) : ?>
   <div class="rounded-lg bg-info">
-  <p class="p-3">SICHTBAR FÜR BLOG USER ODER ADMIN.</p>
+  <p class="p-3">Hallo <?= $_SESSION['username'] ;?>. Deine Freigabe: <?= ucfirst($_SESSION['role']); ?>. SICHTBAR FÜR BLOG USER ODER ADMIN.</p>
 </div>
 
 <form class="needs-validation" enctype="multipart/form-data" action="inc/blog/blog_insert.php" method="post" novalidate>
@@ -44,13 +44,52 @@
   $data = $statement->fetchAll();
   
   // TEST
-  echo '*************TEST****************';
-  echo '<br>';
-  var_dump($data);
-  echo '<br>';
-  echo '*************TEST****************';
-  
-?>
+  // echo '*************TEST****************';
+  // echo '<br>';
+  // echo '<pre>';
+  // var_dump($data);
+  // echo '</pre>';
+  // echo '<br>';
+  // echo '*************TEST****************';  
 
+foreach($data AS $key=>$value) : ?>
+  <div class="rounded-lg bg-secondary text-white my-5 py-3">
+    <section>
+      <h3><?= cleanInput($value['title']); ?></h3>
+      <p><small>Beitrag erstellt von</small> <b><?= ucfirst($value['firstname']); ?></b> <small>am</small> <b><?= formatDbDate($value['datum']); ?></b></p>
+      <div class="clearfix p-3">
+        <?php if(!empty($value['img_file_name']) && ($key % 2 === 0)) : ?>
+          <img class="float-left img-33 px-3" src="image_upload/<?= $value['img_file_name']; ?>" alt="">
+        <?php else : ?>
+          <img class="float-right img-33 px-3" src="image_upload/<?= $value['img_file_name']; ?>" alt="">
+        <?php endif; ?>
+        <p class="text-left px-3">
+          <?= nl2br(cleanInput($value['post'])); ?>
+        </p>
+        <!-- TEST -->
+        <p class="bg-warning">
+          ARRAY-SCHLÜSSEL: <?= $key; ?>
+          <br>
+          USER-ID: <?= $value['user_id'] ?>
+          <br>
+          USER-Name: <?= $value['firstname'] ?>  
+        </p>
+      </div>
+    </section>
+  </div>
+<?php endforeach; ?>
+<?php
+  // TEST
+  echo '*************TEST****************';
+  echo '<div class="text-left bg-info rounded-lg"';  
+  echo '<p>';
+  echo '<pre class="p-3">';
+  var_dump($data);
+  echo '</p>';
+  echo '</pre>';
+  echo '</div>';
+  echo '*************TEST****************'; 
+?>
 </div>
+
 

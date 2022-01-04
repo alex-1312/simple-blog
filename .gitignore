@@ -4,3 +4,5 @@ db.inc.php
 #ignore image and image_upload folders
 /image_upload
 /image
+
+cache.txt

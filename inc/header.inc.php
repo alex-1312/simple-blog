@@ -17,6 +17,11 @@
   
   <!-- From Validation -->
   <script src="js/validate.js" defer></script>
+
+  <!-- STYLES -->
+  <style>
+    <?= require 'css/style.css'; ?>
+  </style>
 </head>
 <body>
 <!-- Navigation -->
