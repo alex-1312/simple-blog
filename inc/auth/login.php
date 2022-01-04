@@ -14,7 +14,7 @@ session_start();
 $mail = trim($_POST['mail']);
 $pwd = trim($_POST['pwd']);
 
-if( !empty($_POST) && $_POST['csrf-token'] === $_SESSION['token'])
+if( !empty($_POST) && $_POST['xsrf-token'] === $_SESSION['token'])
 {
 	$sql = 'SELECT * FROM users WHERE email = ?';
 	$statement = $db->prepare($sql);

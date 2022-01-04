@@ -14,7 +14,9 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <!-- Latest compiled JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> 
-
+  
+  <!-- From Validation -->
+  <script src="js/validate.js" defer></script>
 </head>
 <body>
 <!-- Navigation -->
@@ -33,8 +35,8 @@
       <li class="nav-item <?= empty($page) ? 'active' : '';  ?>">
         <a class="nav-link" href="index.php">Home</a>
       </li>
-      <li class="nav-item <?= ($page == 'link2') ? 'active' : ''; ?>">
-        <a class="nav-link" href="index.php?page=link2">Link2</a>
+      <li class="nav-item <?= ($page == 'blog') ? 'active' : ''; ?>">
+        <a class="nav-link" href="index.php?page=blog">Blog</a>
       </li>
       <?php if(!isLoggedIn()) :?>
       <li class="nav-item">

@@ -5,7 +5,7 @@
 	<input type="password" name="pwd" 
 			placeholder="Password" required="required"  />
 	
-	<input type="hidden" name="csrf-token" value="<?= $_SESSION['token']?>" />
+	<input type="hidden" name="xsrf-token" value="<?= $_SESSION['token']?>" />
 	<input type="submit" value="login" />
 </form>
 <div class="text-left">

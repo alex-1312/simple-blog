@@ -1,2 +1,6 @@
 #ignore db.inc.php
 db.inc.php
+
+#ignore image and image_upload folders
+/image_upload
+/image

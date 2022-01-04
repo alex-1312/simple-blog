@@ -8,10 +8,10 @@ session_start();
 
 if(!($_POST))
 {
-  $_SESSION['message'] = 'Fehler bei der registrierung';
-  redirect('../../index.php?page=register');
+  $$_SESSION['message'] = 'Fehler bei der Registrierung';
+  redirect('../../index.php?page=register&info_box=bg-warning');
 }
-else
+elseif($_POST['xsrf-token']===$_SESSION['token'])
 {
   $firstname = trim(cleanInput($_POST['firstname']));
   $lastname = trim(cleanInput($_POST['lastname']));
@@ -45,6 +45,6 @@ else
   {
     // mail not unique - no database insert
     $_SESSION['message'] = 'Die E-Mail Adresse existiert bereits. Bitte verwenden Sie eine andere Adresse.';
-    redirect('../../index.php?page=register');
+    redirect('../../index.php?page=register&info_box=bg-warning');
   }
 }

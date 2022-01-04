@@ -47,6 +47,9 @@ ALTER TABLE `blog_posts`
 ALTER TABLE `blog_posts`
   MODIFY `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
+ALTER TABLE `blog_posts` 
+  ADD COLUMN `img_file_name` VARCHAR(255) NULL DEFAULT NULL BEFORE `post`;
+
 --
 -- constraints table blog_posts
 --

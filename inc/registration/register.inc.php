@@ -1,5 +1,8 @@
 <div class="container text-center pt-3">
   <h1>Registrierung</h1>
+  <?php if(isset($_GET['error'])) : ?>
+    <p class="rounded-lg bg-danger p-1"><?= $_GET['error']; ?></p>
+  <?php endif; ?>
   <form action="inc/registration/register.php" method="post" class="needs-validation" novalidate>
     <!-- FIRSTNAME -->
     <div class="form-group">
@@ -29,26 +32,7 @@
       <div class="valid-feedback">Ok.</div>
       <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus. Mindestens 8 Zeichen.</div>
     </div>
+    <input type="hidden" name="xsrf-token" value="<?= $_SESSION['token']; ?>">
     <button type="submit" class="btn btn-primary">Abschicken</button>
   </form>
 </div>
-<script>
-// Disable form submissions if there are invalid fields
-(function() {
-  'use strict';
-  window.addEventListener('load', function() {
-    // Get the forms we want to add validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function(form) {
-      form.addEventListener('submit', function(event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
-    });
-  }, false);
-})();
-</script>

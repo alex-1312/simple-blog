@@ -40,6 +40,7 @@ require_once 'inc/header.inc.php';
 // switchcase navigation includes
 switch($page)
 {
+  case 'blog': include 'inc/blog/blog.inc.php'; break;
   case 'register': include 'inc/registration/register.inc.php'; break;
   default: include 'inc/home/home.inc.php'; break;
 }
