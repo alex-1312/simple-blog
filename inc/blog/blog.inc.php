@@ -17,7 +17,7 @@
   <!-- BLOG POST -->
   <div class="form-group">
     <label for="blogpost">Blog Eintrag</label>
-    <textarea class="form-control" name="blogpost" id="blogpost" placeholder="Dein Blog Eintrag." required></textarea>
+    <textarea class="form-control" name="blogpost" id="blogpost" rows="10" placeholder="Dein Blog Eintrag." required></textarea>
     <div class="valid-feedback">Ok.</div>
     <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
   </div>
@@ -53,17 +53,17 @@
   // echo '*************TEST****************';  
 
 foreach($data AS $key=>$value) : ?>
-  <div class="rounded-lg bg-secondary text-white my-3 py-3">
+  <div class="rounded-lg bg-secondary text-white my-5 py-3">
     <section>
       <h3><?= cleanInput($value['title']); ?></h3>
       <p><small>Beitrag erstellt von</small> <b><?= ucfirst($value['firstname']); ?></b> <small>am</small> <b><?= formatDbDate($value['datum']); ?></b></p>
       <div class="clearfix p-3">
         <?php if(!empty($value['img_file_name']) && ($key % 2 === 0)) : ?>
-          <img class="float-left img-33 px-3" src="image_upload/<?= $value['img_file_name']; ?>" alt="">
+          <img class="float-left img-33 px-1" src="image_upload/<?= $value['img_file_name']; ?>" alt="">
         <?php else : ?>
-          <img class="float-right img-33 px-3" src="image_upload/<?= $value['img_file_name']; ?>" alt="">
+          <img class="float-right img-33 px-1" src="image_upload/<?= $value['img_file_name']; ?>" alt="">
         <?php endif; ?>
-        <p class="text-left px-3">
+        <p class="text-left px-1">
           <?= nl2br(cleanInput($value['post'])); ?>
         </p>
         <!-- TEST -->
@@ -79,13 +79,17 @@ foreach($data AS $key=>$value) : ?>
       </div>
     </section>
   </div>
-  <?php if (isAdminUser() || $value['user_id'] === $_SESSION['id']) : ?>
-    <div class="pb-5">
-      <a href="inc/blog/blog_edit.php" class="btn btn-primary">
-        Bearbeiten
-      </a>
-      <a href="inc/blog/blog_delete.php?user_id=<?= (int)$value['user_id']; ?>&post_id=<?= (int)$value[0] ?>&fname=<?= $value['img_file_name']; ?>&xsrf-token=<?= $_SESSION['token']; ?>" onclick="return confirm('Delete? Really??');" class="btn btn-danger">Beitrag löschen</a>
-    </div>
+  <?php if(isset($_SESSION['id'])) : ?>
+    <?php if (isAdminUser() || $value['user_id'] === $_SESSION['id']) : ?>
+      <div class="pb-5">
+        <a href="inc/blog/blog_delete.php?user_id=<?= (int)$value['user_id']; ?>&post_id=<?= (int)$value[0] ?>&fname=<?= $value['img_file_name']; ?>&xsrf-token=<?= $_SESSION['token']; ?>" onclick="return confirm('Delete? Really??');" class="btn btn-danger">
+          Beitrag löschen
+        </a>
+        <a href="index.php?page=blog_edit&user_id=<?= (int)$value['user_id']; ?>&post_id=<?= (int)$value[0] ?>&fname=<?= $value['img_file_name']; ?>&xsrf-token=<?= $_SESSION['token']; ?>" class="btn btn-primary">
+          Bearbeiten
+        </a>
+      </div>
+    <?php endif; ?>
   <?php endif; ?>
 <?php endforeach; ?>
 <?php
