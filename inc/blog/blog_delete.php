@@ -12,49 +12,43 @@ require_once '../func/func.inc.php';
 // start session
 session_start();
 
-if(
-    (isAdminUser() || isBlogUser()) ||
-    ((int)$_GET['user_id'] === (int)$_SESSION['id']) ||
-    ($_GET['xsrf-token'] === $_SESSION['token'])
+if( (empty($_GET)) ||
+    (
+      (!isAdminUser() || !isBlogUser()) &&
+      ((int)$_GET['user_id'] === (int)$_SESSION['id']) &&
+      ($_GET['xsrf-token'] === $_SESSION['token'])
+    )
   )
 {
-  if(!empty($_GET))  
-  {      
-    $post_id = $_GET['post_id'];
-    // if fname is not empty asign its value to $fn
-    $fn = (!empty($_GET['fname'] ) ? $_GET['fname'] : '' );
-    $path = '../../image_upload/' . $fn;
+  $_SESSION['message'] = 'Sie haben nicht die nötigen Rechte.';
+  die(redirect('../../index.php?page=blog&info_box=bg-warning'));
+}  
+// vars
+$post_id = $_GET['post_id'];
+// if fname is not empty asign its value to $fn
+$fn = (!empty($_GET['fname'] ) ? $_GET['fname'] : '' );
+$path = '../../image_upload/' . $fn;
 
-    $sql = 'DELETE FROM blog_posts WHERE id = ?';
-    $statement = $db->prepare($sql);
-    $statement->execute([$post_id]);
+$sql = 'DELETE FROM blog_posts WHERE id = ?';
+$statement = $db->prepare($sql);
+$statement->execute([$post_id]);
 
-    // if file exists delete it on webserv
-    if(file_exists($path))
-    { 
-      $msg = ' Bilddatei: ' . $fn . ' wurde gelöscht.';
-      unlink($path);
-    }
-    else
-    {
-      $msg = '';
-    }
-
-    $_SESSION['message'] = 'Blog Beitrag wurde gelöscht.' . $msg;
-    redirect('../../index.php?page=blog&info_box=bg-warning');
-  }
-  else
-  {
-    $_SESSION['message'] = 'Nicht genügend Prameter.';
-    redirect('../../index.php?page=blog&info_box=bg-warning');
-  } 
+// if file exists delete it on webserv
+if(file_exists($path))
+{ 
+  $msg = ' Bilddatei: ' . $fn . ' wurde gelöscht.';
+  unlink($path);
 }
 else
 {
-  $_SESSION['message'] = 'Sie haben nicht die nötigen Rechte.';
-  redirect('../../index.php?page=blog&info_box=bg-warning');
-  exit;
-} 
+  $msg = '';
+}
+
+$_SESSION['message'] = 'Blog Beitrag wurde gelöscht.' . $msg;
+redirect('../../index.php?page=blog&info_box=bg-warning');
+   
+
+ 
 
   
 
