@@ -5,7 +5,7 @@
     
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Login or Register</h4>
+        <h4 class="modal-title">Einloggen oder Registrieren</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       
@@ -18,6 +18,7 @@
       
       <!-- Modal footer -->
       <div class="modal-footer">
+        <a class="btn btn-primary" href="index.php?page=register">Registrieren</a>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
