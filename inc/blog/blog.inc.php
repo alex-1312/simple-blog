@@ -22,7 +22,7 @@
     <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
   </div>
   <div class="form-group">
-    <label for="fileToUpload">Picture Upload</label>
+    <label for="fileToUpload">Bild Upload</label>
     <input type="file" class="form-control-file border rounded-lg" name="fileToUpload" id="fileToUpload">
   </div>
   <input type="hidden" name="userid" value="<?= $_SESSION['id'] ?>">
