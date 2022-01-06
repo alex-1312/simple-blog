@@ -15,8 +15,8 @@ session_start();
 if( (empty($_GET)) ||
     (
       (!isAdminUser() || !isBlogUser()) &&
-      ((int)$_GET['user_id'] === (int)$_SESSION['id']) &&
-      ($_GET['xsrf-token'] === $_SESSION['token'])
+      ((int)$_GET['user_id'] !== (int)$_SESSION['id']) &&
+      ($_GET['xsrf-token'] !== $_SESSION['token'])
     )
   )
 {
