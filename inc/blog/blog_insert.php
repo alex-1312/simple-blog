@@ -16,14 +16,13 @@ session_start();
 if(!isLoggedIn() && (!isBlogUser() || !isAdminUser()))
 {
   $_SESSION['message'] = 'Kein Zugriff.';
-  redirect('../../index.php?info_box=bg-danger');
-  exit;
+  die(redirect('../../index.php?info_box=bg-danger'));
 }
 
 if(!($_POST))
 {
   $_SESSION['message'] = 'Fehler beim Absenden des Formulars';
-  redirect('../../index.php?page=blog&info_box=bg-warning');
+  die(redirect('../../index.php?page=blog&info_box=bg-warning'));
 }
 elseif($_POST['xsrf-token']===$_SESSION['token'])
 {
