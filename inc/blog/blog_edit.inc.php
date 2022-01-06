@@ -1,13 +1,18 @@
 <?php
-if(
-    (isAdminUser() || isBlogUser()) &&
-    ((int)$_GET['user_id'] === (int)$_SESSION['id']) &&
-    ($_GET['xsrf-token'] === $_SESSION['token'])
+if( (empty($_GET)) &&
+    (
+      ((!isAdminUser()) || ((!isBlogUser()) && ((int)$_GET['user_id'] !== (int)$_SESSION['id']))) &&
+      ($_GET['xsrf-token'] !== $_SESSION['token'])
+    )
   )
 { 
+  $_SESSION['message'] = 'Sie haben nicht die nötigen Rechte.';
+  die(redirect('index.php?page=blog&info_box=bg-warning'));
+}
+
   // vars
   $post_id = cleanInput($_GET['post_id']);
-  $user_id = cleanInput($_GET['user_id']);
+  $user_id = (int)$_GET['user_id'];
   $old_fname = cleanInput($_GET['fname']); 
 
   // sql query string
@@ -62,20 +67,14 @@ if(
     </div>
   </form>
 </div>
+
 <?php
-}
-else
-{
-  $_SESSION['message'] = 'Sie haben nicht die nötigen Rechte.';
-  redirect('index.php?page=blog&info_box=bg-warning');
-  exit;
-}
 // TEST
   
-var_dump($_GET);
-echo '<br>';
-echo '<br>';
-echo '<pre>';
-var_dump($data);
-echo '</pre>';
-?>
+// var_dump($_GET);
+// echo '<br>';
+// echo '<br>';
+// echo '<pre>';
+// var_dump($data);
+// echo '</pre>';
+// ?>

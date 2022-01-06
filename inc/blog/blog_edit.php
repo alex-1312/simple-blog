@@ -14,10 +14,9 @@ session_start();
 
 
 
-if( (empty($_POST)) ||
+if( (empty($_POST)) &&
     (
-      (!isAdminUser() || !isBlogUser()) &&
-      ((int)$_POST['user_id'] !== (int)$_SESSION['id']) &&
+      ((!isAdminUser()) || ((!isBlogUser()) && ((int)$_POST['user_id'] !== (int)$_SESSION['id']))) &&
       ($_POST['xsrf-token'] !== $_SESSION['token'])
     )
   )
@@ -83,7 +82,7 @@ if ( !empty($old_fname) && !empty($_FILES['fileToUpload']['name']) ) {
 }
 
 //
-if ( !empty($_POST['image_path']) && empty($_FILES['fileToUpload']['name']) ) {
+if ( !empty($old_fname) && empty($_FILES['fileToUpload']['name']) ) {
   $new_fn = $old_fname;
 }
 
@@ -103,8 +102,8 @@ $statement = $db->prepare($sql);
 // execute the statement
 $statement->execute([$title, $blogpost, $new_fn, $datetime, $post_id]);
 
-// $_SESSION['message'] = 'Nachricht von blog_edit.php';
-// redirect('../../index.php?page=blog&info_box=bg-warning');
+$_SESSION['message'] = 'Blog Eintrag geändert. ' . $upload_status;
+redirect('../../index.php?page=blog&info_box=bg-info');
 
 // TEST
 // echo '<hr><pre>';

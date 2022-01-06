@@ -3,7 +3,7 @@
 
 <?php if(isLoggedIn() && (isBlogUser() || isAdminUser())) : ?>
   <div class="rounded-lg bg-info">
-  <p class="p-3">Hallo <?= $_SESSION['username'] ;?>. Deine Freigabe: <?= ucfirst($_SESSION['role']); ?>. SICHTBAR FÜR BLOG USER ODER ADMIN.</p>
+  <p class="p-1">Hallo <?= $_SESSION['username'] ;?>. Deine Freigabe: <?= ucfirst($_SESSION['role']); ?>.</p>
 </div>
 
 <form class="needs-validation" enctype="multipart/form-data" action="inc/blog/blog_insert.php" method="post" novalidate>
@@ -42,15 +42,6 @@
             blog_posts.created_at DESC';
   $statement = $db->query($sql);
   $data = $statement->fetchAll();
-  
-  // TEST
-  // echo '*************TEST****************';
-  // echo '<br>';
-  // echo '<pre>';
-  // var_dump($data);
-  // echo '</pre>';
-  // echo '<br>';
-  // echo '*************TEST****************';  
 
 foreach($data AS $key=>$value) : ?>
   <div class="rounded-lg bg-secondary text-white my-5 py-3">
@@ -66,21 +57,11 @@ foreach($data AS $key=>$value) : ?>
         <p class="text-left px-1">
           <?= nl2br(cleanInput($value['post'])); ?>
         </p>
-        <!-- TEST -->
-        <p class="bg-warning">
-          ARRAY-SCHLÜSSEL: <?= $key; ?>
-          <br>
-          USER-ID: <?= $value['user_id'] ?>
-          <br>
-          USER-Name: <?= $value['firstname'] ?>
-          <br>
-          BEITRAGS-ID: <?= (int)$value[0]; ?>
-        </p>
       </div>
     </section>
   </div>
   <?php if(isset($_SESSION['id'])) : ?>
-    <?php if (isAdminUser() || $value['user_id'] === $_SESSION['id']) : ?>
+    <?php if (isAdminUser() || (isBlogUser() && $value['user_id'] === $_SESSION['id'])) : ?>
       <div class="pb-5">
         <a href="inc/blog/blog_delete.php?user_id=<?= (int)$value['user_id']; ?>&post_id=<?= (int)$value[0] ?>&fname=<?= $value['img_file_name']; ?>&xsrf-token=<?= $_SESSION['token']; ?>" onclick="return confirm('Delete? Really??');" class="btn btn-danger">
           Beitrag löschen
@@ -92,18 +73,6 @@ foreach($data AS $key=>$value) : ?>
     <?php endif; ?>
   <?php endif; ?>
 <?php endforeach; ?>
-<?php
-  // TEST
-  echo '*************TEST****************';
-  echo '<div class="text-left bg-info rounded-lg"';  
-  echo '<p>';
-  echo '<pre class="p-3">';
-  var_dump($data);
-  echo '</p>';
-  echo '</pre>';
-  echo '</div>';
-  echo '*************TEST****************'; 
-?>
 </div>
 
 
