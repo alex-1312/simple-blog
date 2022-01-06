@@ -29,8 +29,8 @@ if( !empty($_POST) && $_POST['xsrf-token'] === $_SESSION['token'])
 	} 
 	else
 	{
-		$_SESSION['message'] = 'Wrong Logindata.';			 
+		$_SESSION['message'] = 'Fehler beim Einloggen.';			 
+		redirect('../../index.php?info_box=bg-danger');
 	}		
 }
-
-redirect('../../index.php');
+redirect('../../index.php?info_box=bg-success');
