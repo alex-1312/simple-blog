@@ -1,6 +1,9 @@
 <?php
-  // pagination vars
+  /**TODO:
+   * Dynamic pagination limit form
+   */
 
+  // pagination vars
   // dynamic limit
   $limit = isset($_SESSION['rec-limit']) ? $_SESSION['rec-limit'] : 5;
 
