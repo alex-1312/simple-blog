@@ -34,9 +34,9 @@
 ?>
 <!-- BLOG CONTAINER -->
 <div class="container text-center pt-3">
-  <h1>BLOG.INC.PHP</h1>
+  <h1 class="text-muted">BLOG.INC.PHP</h1>
 <?php foreach($data AS $key=>$value) : ?>
-  <div class="rounded-lg bg-secondary text-white my-5 py-3">
+  <div class="rounded-lg border bg-light text-dark my-5 py-3">
     <section>
       <h3><?= cleanInput($value['title']); ?></h3>
       <p><small>Beitrag erstellt von</small> <b><?= ucfirst($value['firstname']); ?></b> <small>am</small> <b><?= formatDbDate($value['datum']); ?></b></p>
@@ -51,19 +51,19 @@
         </p>
       </div>
     </section>
-  </div>
-  <?php if(isset($_SESSION['id'])) : ?>
-    <?php if (isAdminUser() || (isBlogUser() && $value['user_id'] === $_SESSION['id'])) : ?>
-      <div class="pb-5">
-        <a href="inc/blog/blog_delete.php?user_id=<?= (int)$value['user_id']; ?>&post_id=<?= (int)$value[0] ?>&fname=<?= $value['img_file_name']; ?>&xsrf-token=<?= $_SESSION['token']; ?>" onclick="return confirm('Delete? Really??');" class="btn btn-danger">
-          Beitrag löschen
-        </a>
-        <a href="index.php?page=blog_edit&user_id=<?= (int)$value['user_id']; ?>&post_id=<?= (int)$value[0] ?>&fname=<?= $value['img_file_name']; ?>&xsrf-token=<?= $_SESSION['token']; ?>" class="btn btn-primary">
-          Bearbeiten
-        </a>
-      </div>
+    <?php if(isset($_SESSION['id'])) : ?>
+      <?php if (isAdminUser() || (isBlogUser() && $value['user_id'] === $_SESSION['id'])) : ?>
+        <div class="pb-5">
+          <a href="inc/blog/blog_delete.php?user_id=<?= (int)$value['user_id']; ?>&post_id=<?= (int)$value[0] ?>&fname=<?= $value['img_file_name']; ?>&xsrf-token=<?= $_SESSION['token']; ?>" onclick="return confirm('Delete? Really??');" class="btn btn-danger">
+            Beitrag löschen
+          </a>
+          <a href="index.php?page=blog_edit&user_id=<?= (int)$value['user_id']; ?>&post_id=<?= (int)$value[0] ?>&fname=<?= $value['img_file_name']; ?>&xsrf-token=<?= $_SESSION['token']; ?>" class="btn btn-primary">
+            Bearbeiten
+          </a>
+        </div>
+      <?php endif; ?>
     <?php endif; ?>
-  <?php endif; ?>
+  </div>
 <?php endforeach; ?>
 
 
@@ -86,12 +86,12 @@
 
 <!-- NEW BLOG ENTRIES -->
 <?php if(isLoggedIn() && (isBlogUser() || isAdminUser())) : ?>
-  <h3 class="pt-3">Erstellen neuer Blogbeiträge</h3>
+  <h3 class="pt-3 text-dark">Erstellen neuer Blogbeiträge</h3>
   <div class="rounded-lg bg-info">
   <p class="p-1">Hallo <?= $_SESSION['username'] ;?>. Deine Freigabe: <?= ucfirst($_SESSION['role']); ?>.</p>
 </div>
 
-<form class="needs-validation" enctype="multipart/form-data" action="inc/blog/blog_insert.php" method="post" novalidate>
+<form class="needs-validation pb-3" enctype="multipart/form-data" action="inc/blog/blog_insert.php" method="post" novalidate>
   <!-- ÜBERSCHRIFT -->
   <div class="form-group">
     <label for="title">Überschrift des Blogeintrages</label>
@@ -117,16 +117,6 @@
 <?php endif; ?>
 
 </div>
-
-<?php
-echo '<hr>';
-var_dump($totalPages);
-echo '<hr>';
-echo '<pre>';
-var_dump($data);
-echo '</pre>';
-?>
-
 
 
 
