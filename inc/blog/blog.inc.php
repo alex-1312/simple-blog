@@ -1,49 +1,41 @@
+<?php
+  // pagination vars
+
+  // dynamic limit
+  $limit = isset($_SESSION['rec-limit']) ? $_SESSION['rec-limit'] : 5;
+
+  // get total records
+  $sql = $db->query('SELECT COUNT(id) AS id FROM blog_posts')->fetchAll();
+  $allRecords = $sql[0]['id'];
+
+  // calculate total pages
+  $totalPages = ceil($allRecords / $limit);
+
+  // current pagination number
+  $pageNumber = (isset($_GET['pn']) && is_numeric($_GET['pn']) ? $_GET['pn'] : 1 );
+
+  // offset
+  $paginationStart =($pageNumber - 1) * $limit;
+
+  // prev and next
+  $prev = $pageNumber - 1;
+  $next = $pageNumber + 1;
+  
+  // limit query 
+  $data = $db->query(
+             "SELECT * , blog_posts.created_at AS datum FROM blog_posts
+              LEFT JOIN users
+              ON  
+                blog_posts.user_id = users.id
+              ORDER BY
+                blog_posts.created_at DESC
+              LIMIT $paginationStart, $limit"
+              )->fetchAll();
+?>
+<!-- BLOG CONTAINER -->
 <div class="container text-center pt-3">
   <h1>BLOG.INC.PHP</h1>
-
-<?php if(isLoggedIn() && (isBlogUser() || isAdminUser())) : ?>
-  <div class="rounded-lg bg-info">
-  <p class="p-1">Hallo <?= $_SESSION['username'] ;?>. Deine Freigabe: <?= ucfirst($_SESSION['role']); ?>.</p>
-</div>
-
-<form class="needs-validation" enctype="multipart/form-data" action="inc/blog/blog_insert.php" method="post" novalidate>
-  <!-- ÜBERSCHRIFT -->
-  <div class="form-group">
-    <label for="title">Überschrift des Blogeintrages</label>
-    <input type="text" class="form-control" name="title" id="title" placeholder="Blogüberschrift" required>
-    <div class="valid-feedback">Ok.</div>
-    <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
-  </div>
-  <!-- BLOG POST -->
-  <div class="form-group">
-    <label for="blogpost">Blog Eintrag</label>
-    <textarea class="form-control" name="blogpost" id="blogpost" rows="10" placeholder="Dein Blog Eintrag." required></textarea>
-    <div class="valid-feedback">Ok.</div>
-    <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
-  </div>
-  <div class="form-group">
-    <label for="fileToUpload">Bild Upload</label>
-    <input type="file" class="form-control-file border rounded-lg" name="fileToUpload" id="fileToUpload">
-  </div>
-  <input type="hidden" name="userid" value="<?= $_SESSION['id'] ?>">
-  <input type="hidden" name="xsrf-token" value="<?= $_SESSION['token']; ?>">
-  <button type="submit" class="btn btn-primary">Abschicken</button>
-</form>
-<?php endif; ?>
-
-
-<?php
-  // get database data
-  $sql = 'SELECT * , blog_posts.created_at AS datum FROM blog_posts
-          LEFT JOIN users
-          ON  
-            blog_posts.user_id = users.id
-          ORDER BY
-            blog_posts.created_at DESC';
-  $statement = $db->query($sql);
-  $data = $statement->fetchAll();
-
-foreach($data AS $key=>$value) : ?>
+<?php foreach($data AS $key=>$value) : ?>
   <div class="rounded-lg bg-secondary text-white my-5 py-3">
     <section>
       <h3><?= cleanInput($value['title']); ?></h3>
@@ -73,6 +65,68 @@ foreach($data AS $key=>$value) : ?>
     <?php endif; ?>
   <?php endif; ?>
 <?php endforeach; ?>
+
+
+<!-- PAGINATION -->
+<ul class="pagination justify-content-center">
+  <li class="page-item <?php if($pageNumber <= 1){echo 'disabled';} ?>">
+    <a class="page-link"
+      href="<?php if($pageNumber <= 1){echo 'index.php?page=blog';} else {echo 'index.php?page=blog&pn=' . $prev; } ?>">vorherige</a>
+  </li>
+  <?php for($i = 1; $i <= $totalPages; $i++) : ?>
+    <li class="page-item <?php if($pageNumber == $i) {echo 'active'; } ?>">
+      <a class="page-link" href="index.php?page=blog&pn=<?= $i; ?>"> <?= $i; ?> </a>
+    </li>
+  <?php endfor; ?>
+  <li class="page-item <?php if($pageNumber >= $totalPages) { echo 'disabled'; } ?>">
+    <a class="page-link"
+      href="<?php if($pageNumber >= $totalPages){ echo 'index.php?page=blog&pn=' . $totalPages; } else {echo "index.php?page=blog&pn=" . $next; } ?>">nächste</a>
+  </li>
+</ul>
+
+<!-- NEW BLOG ENTRIES -->
+<?php if(isLoggedIn() && (isBlogUser() || isAdminUser())) : ?>
+  <h3 class="pt-3">Erstellen neuer Blogbeiträge</h3>
+  <div class="rounded-lg bg-info">
+  <p class="p-1">Hallo <?= $_SESSION['username'] ;?>. Deine Freigabe: <?= ucfirst($_SESSION['role']); ?>.</p>
 </div>
+
+<form class="needs-validation" enctype="multipart/form-data" action="inc/blog/blog_insert.php" method="post" novalidate>
+  <!-- ÜBERSCHRIFT -->
+  <div class="form-group">
+    <label for="title">Überschrift des Blogeintrages</label>
+    <input type="text" class="form-control" name="title" id="title" placeholder="Blogüberschrift" required>
+    <div class="valid-feedback">Ok.</div>
+    <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
+  </div>
+  <!-- BLOG POST -->
+  <div class="form-group">
+    <label for="blogpost">Blog Eintrag</label>
+    <textarea class="form-control" name="blogpost" id="blogpost" rows="10" placeholder="Dein Blog Eintrag." required></textarea>
+    <div class="valid-feedback">Ok.</div>
+    <div class="invalid-feedback">Bitte füllen Sie dieses Feld aus.</div>
+  </div>
+  <div class="form-group">
+    <label for="fileToUpload">Bild Upload</label>
+    <input type="file" class="form-control-file border rounded-lg" name="fileToUpload" id="fileToUpload">
+  </div>
+  <input type="hidden" name="userid" value="<?= $_SESSION['id'] ?>">
+  <input type="hidden" name="xsrf-token" value="<?= $_SESSION['token']; ?>">
+  <button type="submit" class="btn btn-primary">Abschicken</button>
+</form>
+<?php endif; ?>
+
+</div>
+
+<?php
+echo '<hr>';
+var_dump($totalPages);
+echo '<hr>';
+echo '<pre>';
+var_dump($data);
+echo '</pre>';
+?>
+
+
 
 
