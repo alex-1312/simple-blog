@@ -130,3 +130,15 @@ function testSession()
   var_dump($_SESSION['token']);
   echo '<hr>';
 }
+
+/**
+ * function to var_dump stuff pre formated 
+ */
+function test($test)
+{
+  echo '<hr>';
+  echo '<pre>';
+  var_dump($test);
+  echo '</pre>';
+  echo '<hr>';
+}
