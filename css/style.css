@@ -1,12 +1,18 @@
 /* imagescale 33% */
-.img-33{
+.img-33
+{
   width: 33%;
   height: auto;
 }
 
-nav{
+nav
+{
   font-size: 1.5em;
 }
+
+/* bold paragraphs for cards */
+.bold-p{font-weight: bold;}
+
 
 @media screen and (max-width: 62em)
 {
@@ -23,5 +29,10 @@ nav{
   {
     width: 100%;
     height: auto;
+  }
+
+  nav
+  {
+    font-size: 1.0em;
   }
 }
