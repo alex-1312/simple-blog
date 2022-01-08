@@ -8,4 +8,20 @@ nav{
   font-size: 1.5em;
 }
 
-/* TODO imgscale for @ media screen */
+@media screen and (max-width: 62em)
+{
+  .img-33
+  {
+    width: 50%;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 48em)
+{
+  .img-33
+  {
+    width: 100%;
+    height: auto;
+  }
+}

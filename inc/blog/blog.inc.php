@@ -64,14 +64,14 @@
   <div class="rounded-lg border bg-light text-dark my-5 py-3">
     <section>
       <h3><?= cleanInput($value['title']); ?></h3>
-      <p><small>Beitrag erstellt von</small> <b><?= ucfirst($value['firstname']); ?></b> <small>am</small> <b><?= formatDbDate($value['datum']); ?></b></p>
+      <p class="px-2"><small>Beitrag erstellt von</small> <b><?= ucfirst($value['firstname']); ?></b> <small>am</small> <b><?= formatDbDate($value['datum']); ?></b></p>
       <div class="clearfix p-3">
         <?php if(!empty($value['img_file_name']) && ($key % 2 === 0)) : ?>
-          <img class="float-left img-33 px-1" src="image_upload/<?= $value['img_file_name']; ?>" alt="">
+          <img class="float-left img-33 px-2" src="image_upload/<?= $value['img_file_name']; ?>" alt="">
         <?php else : ?>
-          <img class="float-right img-33 px-1" src="image_upload/<?= $value['img_file_name']; ?>" alt="">
+          <img class="float-right img-33 px-2" src="image_upload/<?= $value['img_file_name']; ?>" alt="">
         <?php endif; ?>
-        <p class="text-left px-1">
+        <p class="text-left px-2">
           <?= nl2br(cleanInput($value['post'])); ?>
         </p>
       </div>
