@@ -3,6 +3,10 @@
    * Dynamic pagination limit form
    */
 
+  if(isset($_POST['rec-limit'])){
+    $_SESSION['rec-limit'] = $_POST['rec-limit'];
+  }
+  
   // pagination vars
   // dynamic limit
   $limit = isset($_SESSION['rec-limit']) ? $_SESSION['rec-limit'] : 5;
@@ -35,9 +39,27 @@
               LIMIT $paginationStart, $limit"
               )->fetchAll();
 ?>
+
 <!-- BLOG CONTAINER -->
 <div class="container text-center pt-3">
   <h1 class="text-muted">BLOG.INC.PHP</h1>
+
+  <!-- LIMIT DROPDOWN -->
+  <div class="d-flex flex-row-reverse">
+    <form id="limit" action="index.php?page=blog" method="post">
+      <select name="rec-limit" id="rec-limit" class="custom-select">
+        <option disabled selected>Beiträge</option>
+        <?php foreach([5,10,15,25] as $limit) : ?>
+        <option
+          <?php if(isset($_SESSION['rec-limit']) && $_SESSION['rec-limit'] == $limit) echo 'selected'; ?>
+            value="<?= $limit; ?>">
+          <?= $limit; ?>
+        </option>
+        <?php endforeach; ?>
+      </select>
+    </form>
+  </div>
+
 <?php foreach($data AS $key=>$value) : ?>
   <div class="rounded-lg border bg-light text-dark my-5 py-3">
     <section>
@@ -120,6 +142,14 @@
 <?php endif; ?>
 
 </div>
+
+<script>
+  $(document).ready(function () {
+    $('#rec-limit').change(function () {
+      $('#limit').submit();
+    })
+  });
+</script>
 
 
 
