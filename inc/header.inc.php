@@ -58,7 +58,7 @@
           <i class="fas fa-user-cog"></i>
         </a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">User Profil <i class="fas fa-user"></i></a>
+          <a class="dropdown-item <?= ($page == 'profile') ? 'active' : ''; ?>" href="index.php?page=profile">User Profil <i class="fas fa-user"></i></a>
           <a class="dropdown-item" href="inc/auth/logout.php">Logout <i class="fas fa-sign-out-alt"></i></a>          
         </div>
       </li>

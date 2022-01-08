@@ -43,6 +43,7 @@ switch($page)
   case 'blog': include 'inc/blog/blog.inc.php'; break;
   case 'blog_edit': include 'inc/blog/blog_edit.inc.php'; break;
   case 'register': include 'inc/registration/register.inc.php'; break;
+  case 'profile': include 'inc/profile/profile.inc.php'; break;
   default: include 'inc/home/home.inc.php'; break;
 }
 
