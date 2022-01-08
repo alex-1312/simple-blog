@@ -17,6 +17,7 @@
   
   <!-- From Validation -->
   <script src="js/validate.js" defer></script>
+  <script src="js/windowsize.js" defer></script>
 
   <!-- STYLES -->
   <style>
