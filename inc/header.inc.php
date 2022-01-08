@@ -14,9 +14,12 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <!-- Latest compiled JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> 
-  
+  <!-- Fontawesome -->
+  <script src="https://kit.fontawesome.com/1df936229c.js" crossorigin="anonymous"></script>
+
   <!-- From Validation -->
   <script src="js/validate.js" defer></script>
+  <!-- helper script -->
   <script src="js/windowsize.js" defer></script>
 
   <!-- STYLES -->
@@ -49,10 +52,18 @@
         <a class="nav-link" data-toggle="modal" href="#modal-login-form">Login</a>
       </li>
       <?php else : ?>
-        <li class="nav-item">
-        <a class="nav-link" href="inc/auth/logout.php">Logout</a>
+      <!-- Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          <i class="fas fa-user-cog"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">User Profil <i class="fas fa-user"></i></a>
+          <a class="dropdown-item" href="inc/auth/logout.php">Logout <i class="fas fa-sign-out-alt"></i></a>          
+        </div>
       </li>
       <?php endif; ?>
+      
     </ul>
   </div>
 </nav> 
@@ -62,7 +73,7 @@
   }
 ?>
 <?php if (isset($message)) : ?>
-  <div class="<?= $info_box ?> text-center sticky-top">
+  <div class="<?= $info_box ?> text-center">
     <p class="text-white p-1">
       <b><?= $message ?></b>
     </p>
