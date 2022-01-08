@@ -16,6 +16,7 @@ $statement->execute([$_SESSION['id']]);
 $user = $statement->fetch();
 
 // user vars
+$userId = (int)$user['id'];
 $firstName = ucfirst(trim(cleanInput($user['firstname'])));
 $lastName = ucfirst(trim(cleanInput($user['lastname'])));
 $eMail = ucfirst(trim(cleanInput($user['email'])));
@@ -33,8 +34,30 @@ $updatedAt = (!empty($user['updated_at'])) ? $user['updated_at'] : '';
       <small class="text-muted">Nachname:</small>
       <p><?= $lastName; ?></p>
     </div>
-    <div class="card-body">Content</div>
-    <div class="card-footer">Footer</div>
+    <div class="card-body">
+      <small class="text-muted">Mail:</small>
+      <p><?= $eMail; ?></p>
+      <small class="text-muted">Benutzerrolle:</small>
+      <p><?= $role; ?></p>
+      <small class="text-muted">Konto erstellt:</small>
+      <p><?= $createdAt; ?></p>
+      <?php if(!empty($updatedAt)) : ?>
+      <small class="text-muted">Konto zuletzt aktuallisiert:</small>
+      <p><?= $updatedAt; ?></p>
+      <?php endif; ?>
+    </div>
+    <div class="card-footer">
+      <form action="inc/profile/profile_delete.php" method="post">
+        <input type="hidden" name="user-id">
+        <input type="hidden" name="xsrf-token">
+        <input class="btn btn-danger" type="submit" value="Benutzerkonto löschen">
+      </form>
+      <form action="inc/profile/profile_edit_form.php" method="post">
+        <input type="hidden" name="user-id" value="<?= $userId; ?>">
+        <input type="hidden" name="xsrf-token" value="<?= $_SESSION['token']; ?>">
+        <input class="btn btn-primary" type="submit" value="Benutzerkonto bearbeiten">
+      </form>
+    </div>
   </div>
 </div>
 
