@@ -1,3 +1,12 @@
+<?php
+// die/redirect on missing permissions
+if(!isLoggedIn())
+{ 
+  $_SESSION['message'] = 'Sie haben nicht die nötigen Rechte.';
+  die(redirect('index.php?info_box=bg-warning'));
+}
+?>
+
 <form class="needs-validation" action="inc/profile/profile_edit.php" method="post" novalidate>
             
   <!-- Firstname -->
@@ -21,19 +30,6 @@
     <div class="valid-feedback">Ok.</div>
     <div class="invalid-feedback">
       Bitte füllen Sie dieses Feld aus. Mindestens 3 Buchstaben.
-    </div>
-  </div>
-
-  <!-- EMAIL -->
-  <div class="form-group">
-    <label for="email">E-Mail Adresse</label>
-    <input  type="email" class="form-control" 
-            pattern="^[A-Za-z]*[\._-]?[A-Za-z]*@{1}[A-Za-z]{2,}[\.]{1}[A-Za-z]{2,}[\.]?[A-Za-z]{0,}$" 
-            value="<?= $eMail ?>" 
-            id="email" name="email" required>
-    <div class="valid-feedback">Ok.</div>
-    <div class="invalid-feedback">
-      Bitte füllen Sie dieses Feld mit einer gültigen E-Mail Adresse aus.
     </div>
   </div>
 
