@@ -57,7 +57,7 @@ else
             WHERE id = ?';
 
   $statement = $db->prepare($sql);
-  $statement->execute([$firstName,$lastName,$updatedAt,$userId]);
+  $statement->execute([$firstName,$lastName,$password,$updatedAt,$userId]);
 }
 
 $_SESSION['message'] = 'Benutzerkonto erfolgreich geändert.';
