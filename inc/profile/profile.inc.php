@@ -25,15 +25,24 @@ $createdAt = formatDbDate($user['created_at']);
 $updatedAt = (!empty($user['updated_at'])) ? $user['updated_at'] : '';
 
 ?>
+<!-- Content container -->
 <div class="container text-center">
+
+  <!-- Heading -->
   <h1 class="text-muted py-3">Dein Benutzer Profil</h1>
+
+  <!-- Card container -->
   <div class="card">
+
+    <!-- Card header and user info -->
     <div class="card-header bold-p">
       <small class="text-muted">Vorname:</small>
       <p><?= $firstName; ?></p>
       <small class="text-muted">Nachname:</small>
       <p><?= $lastName; ?></p>
     </div>
+
+    <!-- Card body and user info -->
     <div class="card-body">
       <small class="text-muted">Mail:</small>
       <p><?= $eMail; ?></p>
@@ -46,17 +55,47 @@ $updatedAt = (!empty($user['updated_at'])) ? $user['updated_at'] : '';
       <p><?= $updatedAt; ?></p>
       <?php endif; ?>
     </div>
-    <div class="card-footer">
-      <form action="inc/profile/profile_delete.php" method="post">
-        <input type="hidden" name="user-id">
-        <input type="hidden" name="xsrf-token">
-        <input class="btn btn-danger" type="submit" value="Benutzerkonto löschen">
-      </form>
-      <form action="inc/profile/profile_edit_form.php" method="post">
-        <input type="hidden" name="user-id" value="<?= $userId; ?>">
-        <input type="hidden" name="xsrf-token" value="<?= $_SESSION['token']; ?>">
-        <input class="btn btn-primary" type="submit" value="Benutzerkonto bearbeiten">
-      </form>
+    
+    <!-- Card footer and actionbuttons -->
+    <div class="card-footer d-flex justify-content-center">
+
+      <!-- Button delete -->
+      <div class="mx-1">
+        <form action="inc/profile/profile_delete.php" method="post">
+          <input type="hidden" name="user-id">
+          <input type="hidden" name="xsrf-token">
+          <input class="btn btn-danger" type="submit" value="Benutzerkonto löschen">
+        </form>
+      </div>
+
+      <div class="mx-1"> 
+        <!-- Button to Open the Modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#profile-edit-form">
+          Benutzerkonto bearbeiten
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div class="modal" id="profile-edit-form">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Benutzerkonto bearbeiten</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+          
+          <?php require_once 'inc/profile/profile_edit_form.php'; ?>
+
+        </div>
+      </div>
     </div>
   </div>
 </div>
