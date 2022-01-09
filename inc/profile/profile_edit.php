@@ -62,8 +62,4 @@ else
 
 $_SESSION['message'] = 'Benutzerkonto erfolgreich geändert.';
 
-// redirect('../../index.php?page=profile');
-
-
-
-test(array_keys($_POST));
+redirect('../../index.php?page=profile');
