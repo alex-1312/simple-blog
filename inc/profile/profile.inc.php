@@ -17,10 +17,10 @@ $user = $statement->fetch();
 
 // user vars
 $userId = (int)$user['id'];
-$firstName = ucfirst(trim(cleanInput($user['firstname'])));
-$lastName = ucfirst(trim(cleanInput($user['lastname'])));
-$eMail = ucfirst(trim(cleanInput($user['email'])));
-$role = ucfirst(trim(cleanInput($user['role'])));
+$firstName = ucfirst(strtolower(cleanInput(trim($user['firstname']))));
+$lastName = ucfirst(strtolower(cleanInput(trim($user['lastname']))));
+$eMail = trim(cleanInput($user['email']));
+$role = ucfirst(strtolower(cleanInput(trim($user['role']))));
 $createdAt = formatDbDate($user['created_at']);
 $updatedAt = (!empty($user['updated_at'])) ? formatDbDate($user['updated_at']) : '';
 
